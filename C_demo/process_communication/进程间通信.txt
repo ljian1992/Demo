@@ -1,0 +1,370 @@
+
+进程间的通信
+    从unix继承过来：无名管道，有名管道，信号
+    Linux自身的：共享内存，消息队列，信号量          （system V IPC）
+    网络:套接字
+
+通信模型：
+1.创建第三方媒介
+2.关联
+3.通信
+4.关闭
+
+======================================================================
+从unix继承过来：无名管道，有名管道，信号
+
+-----------------------------------------------------------------------------------------------------------------------------------
+无名管道：
+    特性：1.只能用于具有亲缘关系的间的进程的通信 2.属于半双工方式，数据只能一个方向流动，具有固定的读端和写端
+    本质：在内存中虚拟出来的一个文件，处于内核空间，而非用户空间
+        Tip：进程空间，用户空间独立，而内存空间共享。
+
+创建：int pipe(int pipefd[2])
+          参数：  pipefd:文件描述符数组，数组成员只有两个
+          返回值：成功返回0，错误返回-1
+            int fd[2];
+            int pipe (int fd[2])
+            fd[2]: fd[0]读， fd[1]写
+            Tips: 1.为了保证父子进程都有同一对文件描述符，要在子进程创建之前，创建无名管道
+                    2.为了保证数据的流向, 需要关闭一个进程的读端，另一个进程的写端
+                    3.管道没有数据，读操作会阻塞，直到有消息读
+                    4.当无名管道满后，写会阻塞，直到有空间写
+                    5.所有进程管道的读端都关闭了，会收到内核命令，进程会退出
+                    6.所有进程的写端都关闭，读端读完数据后，会返回0
+                    7.无名管道，不能lseek()
+关联：创建无名管道后，可以像操作文件一样对它进行读写，但读端和写端是固定的
+通信：ssize_t read(int fd, void *buf, size_t count),  ssize_t  write(int  fd,  const  void  *buf, size_t count);
+销毁：退出后自动销毁
+
+无名管道编程例子：
+-----------------------------------------------------------------------------------------------------------------------------------
+
+有名管道
+    特性：1.可用于没有血缘关系的进程之间进行通信 2.属于半双工方式，数据只能一个方向流动，具有固定的读端和写端
+    本质：有名管道，通过创建管道文件，多个进程之间通过访问管道文件来进行通信。
+
+创建：int mkfifo (const chr *filename, mode_t mode)
+          参数：filename:管道文件的路径
+                    mode:属性设置，  O_CREAT ｜0666
+          返回值:成功返回0，失败返回-1
+
+关联： int open(const char *pathname, int flags);  
+
+通信：两个进程打开同一个管道，然后就可以像操作文件一样，进行读写，但读写遵循管道的特性，即先进先出
+
+销毁： int unlink(const char *pathname);     
+
+有名管道例子：eg1 
+-----------------------------------------------------------------------------------------------------------------------------------
+
+信号
+      特性：给应用程序提供一种异步的软件中断。
+      本质：是整数值，程序接受到了不同的信号后会采取不同的行动
+      进程对信号的响应：忽略， 默认，自定义
+相关命令：kill -l 查看系统定义的信号共62个
+                 ps -a 
+                 ps -ef
+
+发送信号：
+    通过终端发送：kill 信号 pid
+    通过进程发送：
+        int kill(pid_t pid, int sig)
+        参数：pid：要发送的信号的目标进程， -1， 0， <0等有特殊含义
+                  sig：信号
+        返回值：成功返回0， 错误返回-1
+        作用：发送信号给指定进程
+        
+        int raise(int sig);
+        作用：进程自己给自己发送信号
+        参数：sig：信号
+        返回值：成功返回0，失败返回非零
+
+            
+注册信号：
+注册信号函数
+      typedef void (*sighandler_t)(int);
+      sighandler_t signal(int signum, sighandler_t handler);
+      作用：设置进程对信号的处理方式
+      参数：signum：信号
+                headler：SIG_DFL-->默认动作
+                               SIG_IGN-->忽略该信号
+                               函数指针-->自定义操作
+      返回值：成功返回旧的信号处理函数的函数指针，失败返回SIG_ERR
+        
+      int sigaction(int signum, const struct sigaction *act, struct sigaction *oldact)
+      作用：设置进程对信号的处理方式
+      参数：signum：信号
+                act：信号处理结构体， tip：信号处理结构：包含了信号的处理函数，对信号的阻塞集合，以及信号的状态信息
+                oldact：用来保存旧的信号处理结构体
+       返回值：成功返回0， 失败返回-1
+
+阻塞信号集处理函数
+信号处理函数的阻塞信号集处理函数
+           int sigemptyset(sigset_t *set);                //初始化一个阻塞信号集合，set里面被设置为空
+           int sigfillset(sigset_t *set);                      //初始化一个阻塞信号集合，set里面添加了所有的系统信号
+           int sigaddset(sigset_t *set, int signum); //把信号signum添加到阻塞信号集合中
+           int sigdelset(sigset_t *set, int signum);  //把信号signum从阻塞信号集合中删除
+           int sigismember(const sigset_t *set, int signum); //判断信号signum是否在阻塞信号集合中
+
+全局阻塞信号集合处理函数
+           int sigprocmask(int how, const sigset_t *set, sigset_t *oldset);
+           作用：设置全局阻塞信号集合
+           参数：how：操作类型
+                             SIG_BLOCK   ---> 把第二个参数加入全局阻塞信号集
+                             SIG_UNBLOCK --->把第二个参数删除出全局阻塞信号集
+                             SIG_SETMASK --->把第二个参数的阻塞信号集合设置为全局阻塞信号集合
+                    oldset：保存旧的全局阻塞信号集合
+           返回值：成功返回0， 失败返回-1
+                    
+ 相关结构体：
+    struct sigaction {
+               void     (*sa_handler)(int);
+               void     (*sa_sigaction)(int, siginfo_t *, void *);  //可以通过siginfo_t * 这个参数，获取信号的状态信息
+               sigset_t   sa_mask;   //--->阻塞信号集(属于自定义函数的)，当处理函数正在运行的时候，操作系统会阻塞sa_mask这个容器所包含的信号，直到i             
+                                                      处理函数处理完为止，Tip：在接受到了要处理的信号后，该信号会自动的被放入sa_mask这个容器当中
+               int        sa_flags;  //选择用哪一种信号处理函数， sa_flags==0--> void     (*sa_handler)(int)
+                                                                                       sa_flags==SA_SIGINFO-->  void     (*sa_sigaction)(int, siginfo_t *, void *);
+               void     (*sa_restorer)(void);
+           };
+ 
+      siginfo_t {
+               int      si_signo;    /* Signal number */
+               int      si_errno;    /* An errno value */
+               int      si_code;     /* Signal code */
+               int      si_trapno;   /* Trap number that caused
+                                        hardware-generated signal
+                                        (unused on most architectures) */
+               pid_t    si_pid;      /* Sending process ID */
+               uid_t    si_uid;      /* Real user ID of sending process */
+               int      si_status;   /* Exit value or signal */
+               clock_t  si_utime;    /* User time consumed */
+               clock_t  si_stime;    /* System time consumed */
+               sigval_t si_value;    /* Signal value */
+               int      si_int;      /* POSIX.1b signal */
+               void    *si_ptr;      /* POSIX.1b signal */
+               int      si_overrun;  /* Timer overrun count; POSIX.1b timers */
+               int      si_timerid;  /* Timer ID; POSIX.1b timers */
+               void    *si_addr;     /* Memory location which caused fault */
+               long     si_band;     /* Band event (was int in
+                                        glibc 2.3.2 and earlier) */
+               int      si_fd;       /* File descriptor */
+               short    si_addr_lsb; /* Least significant bit of address
+                                        (since Linux 2.6.32) */
+           }
+-----------------------------------------------------------------------------------------------------------------------------------
+
+
+
+==================================================================================
+Linux自身的：共享内存，消息队列，信号量          （system V IPC）
+
+-----------------------------------------------------------------------------------------------------------------------------------
+共享内存
+    特性：共享内存是IPC中最简单，同时也是最高效的通信方式
+    本质：在内核空间开辟一端空间，然后进程通过映射把那段内存映射到用户空间中，然后就通过指针来对这块内存空间进行操作
+    相关概念：键值：开辟的内存空间的“身份证”，后面的消息队列和信号量都是通过键值来标识的，通过键值可以找到相对应的共享内存
+                    映射：
+        Tips:共享内存若不删除，其生命周期与操作系统一致
+
+    相关命令：ipcs -m查看计算机存在的共享内存
+
+创建
+    int ftok (const char * pathname, int proj_id)
+        作用：通过文件名和子序号创建出一个键值
+        参数：pathname:带路径的文件名，注意需要具有访问该文件的权限
+                  proj_id:子序号，可随便定
+        返回值：成功返回创建出的键值，失败返回-1
+        tip：pathname的文件要存在，而且是可以访问的，否则返回值将不确定
+      
+    int shmget (key_t key, size_t size, int shmflg)
+        作用：创建或打开出一个共享内存
+        参数：key:共享内存的键值，一般通过ftok()来设置一个独一无二的键值
+                  size:共享内存的大小
+                  shmflg:设置访问权限和操作类型，
+                        常用 0666 | IPC_CREAT   共享内存不存在则创建否则则打开
+                        0666 | IPC_EXCL: 不存在则新建，否则则报错
+        返回值：成功返回共享内存标识符，失败返回-1
+
+关联
+    两个进程通过同一个键值，创建或开打，然后映射到自己用户空间后就关联了起来
+    void * shmat (int shmid, char * shmaddr, int shmflag)
+    作用：把处于内核空间的共享内存映射到自己的用户空间
+    参数：shmid:共享内存标识符
+              shmaddr:映射的到的目标位置，NULL自动指定
+              shmflag: 对内存的操作模式，0为可读可写
+    返回值：成功返回共享内存在用户空间的起始地址，失败返回-1
+    tips:把共享内存的地址转换相对应的指针，例如结构体指针，就可以通过指针来对内存进行操作了
+
+通信
+    两个进程传教或打开并映射到了自己的用户空间后，就可以通过指针访问内核空间的共享内存了
+    tips:为了让两个进程不产生同时访问共享内存的事件，一般是通过信号量对共享内存进行保护，
+           也可以在结构体中设置相关控制变量，来控制读写
+
+销毁
+    断开映射：
+        int shmdt (const void * shmaddr)
+        作用：使道共享内存脱离映射到的进程地址空间
+        参数：shmaddr:共享内存映射后的用户控件的起始地址，也就是shmat()函数的返回值
+        返回值: 成功返回：0，错误返回：-1
+            tip:断开映射，并没有删除内核空间里面的共享内存
+
+    删除共享内存
+        int shmctl (int shmid, int cmd, struct shmid_ds *buf)
+        作用:控制共享内存
+        参数:shmid:共享内存标识符
+                cmd:操作命令，IPC_STAT:得到共享内存的状态，
+                                         IPC_SET:改变共享内存的状态
+                                         IPC_RMID:删除共享内存
+                buf:共享内存状态结构体指针，IPC_STAT时用来保存共享内存的状态，IPC_SET时用来设置共享内存的状态
+        返回值：成功返回0，失败返回-1
+
+       相关结构体：
+         struct shmid_ds {
+               struct ipc_perm shm_perm;    /* Ownership and permissions */
+               size_t          shm_segsz;   /* Size of segment (bytes) */
+               time_t          shm_atime;   /* Last attach time */
+               time_t          shm_dtime;   /* Last detach time */
+               time_t          shm_ctime;   /* Last change time */
+               pid_t           shm_cpid;    /* PID of creator */
+               pid_t           shm_lpid;    /* PID of last shmat(2)/shmdt(2) */
+               shmatt_t        shm_nattch;  /* No. of current attaches */
+               ...
+           };
+共享内存例子：eg1
+-----------------------------------------------------------------------------------------------------------------------------------
+
+信号量
+    特性：保证关键代码不被多个进程并发访问
+    本质：本质上信号量是不小于0的整数，semval就是信号量的个数
+        tips: 1.信号量的含义是自定义的，可以通过信号量来描述共享资源的个数，eg:自定义semval代表共享资源的个数，
+                   也可用用来描述共享资源的访问权限。 eg:自定义semval ==1时，该资源可写，当semval==0时该资源可读
+                   等等 
+                2.对共享资源进行互斥控制：设置信号量为1，当一个进程访问共享资源时进行P操作使信号量-1，当操作完后，再进行V操作进行信号量+1
+                   当另外一个进程，同时访问共享资源使，去获取信号量时，检测到为0，则阻塞，直到占用资源的进程是否了信号量为止
+                3.对共享资源进行同步控制：
+    概念：
+        并发：
+        互斥：
+        信号量的信号个数：允许同时访问的进程个数，semval，可以用来描述共享资源的个数，也可以用来描述共享资源的控制权。
+        PV操作：P操作semval-1; V操作semval+1
+
+创建
+    int semget (key_t key, int nsems, int semflg)
+        作用：创建或打开一个信号量集合，编号从0开始
+        参数：key：信号量的键值
+                  nsems：信号量信号个数
+                  semflg：操作类型，0666 | IPC_CREAT：没有则创建，有则打开
+        返回值：成功返回信号量集合标识符，失败返回-1
+        tips: 1.创建要使用semctl()对要使用的信号进行初始化，即设置多有个semval，未初始化的semval默认为0
+               2.创建或打开的是信号量的集合，每一个信号量都可以设置semval,
+    
+关联
+    两个或多个进程，要对关键代码访问之前，先进行信号量的获取，访问完后再释放信号量，则它们就相关联起来了
+
+通信
+    int semop (int semid, struct sembuf * sops, unsigned nsops)
+        作用：获取或释放信号量
+        参数：semid：信号量标识符
+                  sops：待操作的信号量结构体，确定获取还是释放信号量
+                  nsops：
+        返回值：成功返回0，  失败返回-1
+
+    相关结构体    
+    struct sembuf
+    {
+          unsigned short sem_num;  /* semaphore number */    //操作多少个信号量
+          short          sem_op;   /* semaphore operation */         sem_op=+x-->semval加x    sem_op=-x-->semval减x
+          short          sem_flg;  /* operation flags */                    sem_flg = SEM_UNDO   -->一般都设置为这个
+                                                                                             sem_flg = IPC_NOWAIT？
+    };
+
+销毁
+    iint semctl(int semid, int semnum, int cmd, ...);
+    作用：控制信号量
+    参数：semid：信号量标识符
+              semnum：操作信号量集合中的第几个信号量，以0开始
+              cmd:
+                    IPC_RMID：将信号量删除
+                    GETPID：
+                    GETVAL：获取semval
+                    SETVAL：设置semval，最后...填写，要设置的初始值
+    返回值：失败返回-1，成功:
+                                        GETPID：返回   
+                                        GETVAL：返回semval ，
+                                        其它返回：0
+    相关结构体：
+    union semun {
+               int              val;    /* Value for SETVAL */
+               struct semid_ds *buf;    /* Buffer for IPC_STAT, IPC_SET */
+               unsigned short  *array;  /* Array for GETALL, SETALL */
+               struct seminfo  *__buf;  /* Buffer for IPC_INFO
+                                           (Linux-specific) */
+           };
+-----------------------------------------------------------------------------------------------------------------------------------
+消息队列
+    特性：类似于管道具有先进先出的特性，但消息队列是有消息类型的
+    消息队列消息结构体
+           struct msgbuf {
+               long mtype;       /* message type, must be > 0 */
+               char mtext[1];    /* message data */
+           };
+创建
+    int msgget (key_t key, int shmflg)
+        作用：创建或打开出一个消息队列
+        参数：key:共享内存的键值，一般通过ftok()来设置一个独一无二的键值
+                  shmflg:设置访问权限和操作类型，
+                        常用 0666 | IPC_CREAT   共享内存不存在则创建否则则打开
+                        0666 | IPC_EXCL: 不存在则新建，否则则报错
+        返回值：成功返回消息队列标识符，失败返回-1
+
+  
+关联
+    两个进程通过同一个键值，创建或开打同一个消息队列后，就关联了起来
+
+通信
+    两个进程间，通过向对应的函数发送和接受信息，已达到通信的目的
+    写：int msgsnd (int msqid， const void * msgp, size_t msgsz, int msgflg)
+        作用：向消息队列写入数据
+        参数：msqid：消息队列标识符
+                  msgp：消息队列结构体指针
+                  msgsz：消息队列消息长度，tip:消息队列消息长度要只是消息的长度，不包括消息队列结构体消息类型的长度，具体的 man
+                  msgflg：处理方式，eg：IPC_NOWAIT非阻塞
+        返回值：成功返回0，失败返回-1
+        tip:默认情况下，没有当消息队列满时，会产生阻塞
+
+    读：int msgrcv (int msqid, const void * msgp, size_t msgsz, long mysgtyp, int msgflg)
+        作用：从消息队列中读取想对应的消息
+        参数：mysgtyp：要读取的消息类型，=0：第一条消息被读取，>0 ：读取向对应的消息类型等等
+                   其它与写的一致
+        返回值：成功返回0， 失败返回-1
+        tip:默认情况下，当消息队列没有向对应的消息时，会阻塞
+
+销毁
+    删除消息队列
+        int msgctl (int msgid, int cmd, struct msqid_ds *buf)
+        作用:控制共享内存
+        参数:msgid:消息队列标识符
+                cmd:操作命令，IPC_STAT:得到消息队列的状态
+                                         IPC_SET:改变类型队列的状态
+                                         IPC_RMID:删除消息队列
+                buf:消息队列状态结构体指针，IPC_STAT时用来保存消息队列的状态，IPC_SET时用来设置消息队列的状态
+        返回值：成功返回0，失败返回-1
+   
+    相关结构体
+    struct msqid_ds {
+               struct ipc_perm msg_perm;     /* Ownership and permissions */
+               time_t          msg_stime;    /* Time of last msgsnd(2) */
+               time_t          msg_rtime;    /* Time of last msgrcv(2) */
+               time_t          msg_ctime;    /* Time of last change */
+               unsigned long   __msg_cbytes; /* Current number of bytes in
+                                                queue (nonstandard) */
+               msgqnum_t       msg_qnum;     /* Current number of messages
+                                                in queue */
+               msglen_t        msg_qbytes;   /* Maximum number of bytes
+                                                allowed in queue */
+               pid_t           msg_lspid;    /* PID of last msgsnd(2) */
+               pid_t           msg_lrpid;    /* PID of last msgrcv(2) */
+           };
+         
+
+

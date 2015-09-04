@@ -1,0 +1,88 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+CC	Makefile	/^CC=gcc$/;"	m
+FLAGS	Makefile	/^FLAGS=-I$(shell pwd)\/include -g -DDEBUG$/;"	m
+INIT_LIST_HEAD	include/kernel_list.h	49;"	d
+LIST_HEAD	include/kernel_list.h	46;"	d
+LIST_HEAD_INIT	include/kernel_list.h	44;"	d
+LIST_POISON1	include/kernel_list.h	37;"	d
+LIST_POISON2	include/kernel_list.h	38;"	d
+LOG	include/flight.h	39;"	d
+LOG	include/flight.h	42;"	d
+NODE	include/flight.h	/^}NODE;$/;"	t	typeref:struct:node
+OBJS	Makefile	/^OBJS=$(patsubst %.c, %.o, $(SRCS))$/;"	m
+POITER_NODE	include/flight.h	/^}POITER_NODE;$/;"	t	typeref:struct:poiter_node_list
+SRCS	Makefile	/^SRCS=$(wildcard *.c *\/*.c *\/*\/*.c)$/;"	m
+TARGET	Makefile	/^TARGET=main$/;"	m
+_COMMONHEADER_H_	include/commonheader.h	2;"	d
+_FILEIO_H_	include/fileio.h	2;"	d
+_FLIGHT_LINK_H_	include/flight_link.h	2;"	d
+_FLIGTH_H_	include/flight.h	2;"	d
+_PRINT_H_	include/print.h	2;"	d
+__DLIST_H	include/kernel_list.h	2;"	d
+__list_add	include/kernel_list.h	/^static inline void __list_add(struct list_head *new,$/;"	f
+__list_del	include/kernel_list.h	/^static inline void __list_del(struct list_head *prev, struct list_head *next)$/;"	f
+__list_splice	include/kernel_list.h	/^static inline void __list_splice(struct list_head *list,$/;"	f
+arrAddr	include/flight.h	/^	char arrAddr[12];       \/\/终点站$/;"	m	struct:flight_data
+atime	include/flight.h	/^	char atime[25];         \/\/到达时间$/;"	m	struct:flight_data
+container_of	include/kernel_list.h	29;"	d
+dadatype_copy	filght/fileio.c	/^void dadatype_copy (datatype *dest, datatype *src)$/;"	f
+datatype	include/flight.h	/^}datatype;$/;"	t	typeref:struct:flight_data
+destroy_data_link	filght/flight_link.c	/^void destroy_data_link (NODE * head)$/;"	f
+destroy_poiter_link	filght/flight_link.c	/^void destroy_poiter_link (POITER_NODE * head)$/;"	f
+find_data	filght/find.c	/^void find_data (NODE *head, const char *str, int mode)$/;"	f
+flight_data	include/flight.h	/^typedef struct flight_data$/;"	s
+info	include/flight.h	/^	datatype info;           \/\/航班数据结构体$/;"	m	struct:node
+init_list	filght/flight_link.c	/^NODE * init_list (void)$/;"	f
+init_poiter_list	filght/flight_link.c	/^POITER_NODE * init_poiter_list (void)$/;"	f
+input_flight_data	filght/fileio.c	/^void input_flight_data (FILE * fd, NODE *head)$/;"	f
+list	include/flight.h	/^	struct list_head list;   \/\/内核链表$/;"	m	struct:node	typeref:struct:node::list_head
+list	include/flight.h	/^	struct list_head list;$/;"	m	struct:poiter_node_list	typeref:struct:poiter_node_list::list_head
+list_add	include/kernel_list.h	/^static inline void list_add(struct list_head *new, struct list_head *head)$/;"	f
+list_add_tail	include/kernel_list.h	/^static inline void list_add_tail(struct list_head *new, struct list_head *head)$/;"	f
+list_del	include/kernel_list.h	/^static inline void list_del(struct list_head *entry)$/;"	f
+list_del_init	include/kernel_list.h	/^static inline void list_del_init(struct list_head *entry)$/;"	f
+list_empty	include/kernel_list.h	/^static inline int list_empty(struct list_head *head)$/;"	f
+list_entry	include/kernel_list.h	210;"	d
+list_for_each	include/kernel_list.h	218;"	d
+list_for_each_entry	include/kernel_list.h	246;"	d
+list_for_each_entry_safe	include/kernel_list.h	258;"	d
+list_for_each_prev	include/kernel_list.h	226;"	d
+list_for_each_safe	include/kernel_list.h	236;"	d
+list_head	include/kernel_list.h	/^struct list_head {$/;"	s
+list_move	include/kernel_list.h	/^static inline void list_move(struct list_head *list,$/;"	f
+list_move_tail	include/kernel_list.h	/^static inline void list_move_tail(struct list_head *list,$/;"	f
+list_splice	include/kernel_list.h	/^static inline void list_splice(struct list_head *list, struct list_head *head)$/;"	f
+list_splice_init	include/kernel_list.h	/^static inline void list_splice_init(struct list_head *list,$/;"	f
+main	main.c	/^int main (int argc, char *agrv[])$/;"	f
+new_node	filght/flight_link.c	/^NODE * new_node (void)$/;"	f
+new_poiter_node	filght/flight_link.c	/^POITER_NODE * new_poiter_node (NODE * node_poiter)$/;"	f
+next	include/kernel_list.h	/^	struct list_head *next, *prev;$/;"	m	struct:list_head	typeref:struct:list_head::list_head
+node	include/flight.h	/^typedef struct node$/;"	s
+num	include/flight.h	/^	int num;                 \/\/第几个有效数据$/;"	m	struct:node
+number	include/flight.h	/^	char number[8];        \/\/航班号$/;"	m	struct:flight_data
+offsetof	include/kernel_list.h	27;"	d
+poiter	include/flight.h	/^	NODE * poiter;$/;"	m	struct:poiter_node_list
+poiter_node_list	include/flight.h	/^typedef struct poiter_node_list$/;"	s
+prev	include/kernel_list.h	/^	struct list_head *next, *prev;$/;"	m	struct:list_head	typeref:struct:list_head::
+price	include/flight.h	/^	float price;            \/\/价格 $/;"	m	struct:flight_data
+print_auth_info	filght/print.c	/^void print_auth_info (void)$/;"	f
+print_find_menu	filght/print.c	/^void print_find_menu (FILE * fd, NODE * head)$/;"	f
+print_fli_info	filght/print.c	/^void print_fli_info (NODE * head)$/;"	f
+print_fli_info_menu	filght/print.c	/^void print_fli_info_menu (void)$/;"	f
+print_input_info	filght/print.c	/^void print_input_info(void)$/;"	f
+print_input_menu	filght/print.c	/^void print_input_menu (FILE * fd, NODE * head)$/;"	f
+print_node	filght/flight_link.c	/^void print_node (NODE * head)$/;"	f
+print_options_menu	filght/print.c	/^void print_options_menu (void)$/;"	f
+print_welcome_menu	filght/print.c	/^void print_welcome_menu (void)$/;"	f
+read_flight_info	filght/fileio.c	/^NODE * read_flight_info (FILE * fd, NODE * head)$/;"	f
+show_kel_list	filght/flight_link.c	/^void show_kel_list (NODE * head)$/;"	f
+show_poiter_list	filght/flight_link.c	/^void show_poiter_list (POITER_NODE * head)$/;"	f
+startAddr	include/flight.h	/^	char startAddr[12];     \/\/起点站$/;"	m	struct:flight_data
+stime	include/flight.h	/^	char stime[25];         \/\/起飞时间$/;"	m	struct:flight_data
+type	include/flight.h	/^	char type;              \/\/机型$/;"	m	struct:flight_data
+write_node	filght/fileio.c	/^void write_node (NODE * node, FILE * fd)$/;"	f
