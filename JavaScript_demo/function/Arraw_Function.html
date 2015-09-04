@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>箭头函数</title>
+
+    <script type="text/javascript">
+        /*箭头函数是ES6新增的函数， 有点像匿名函数，但它不是, 最主要的区别在于箭头函数内部的this是词法作用域，有上下文确定的, 就是说
+          箭头函数中的this所在的上下文是哪一个obj，this就指向哪一个obj，不会改变
+        * */
+
+        // 无参数:
+        () => 3.14;
+
+        //参数只有一个并只有一句表达式的
+        var fn = x => x*x;
+
+
+        //没有参数，具有条语句
+        var fn2 = x=>{
+            if(x>0){return x*x;}
+        }
+
+        //具有多个参数并只有一句表达式
+        var fn3 = (x, y)=>x+y;
+
+        //多个参数多条语句
+        var fn4 = (x, y)=>{
+            x += 2;
+            y += 3;
+            return x+y;
+        };
+
+        //可变参数
+        var fn5 = (x, y,...rest)=>{
+            var i, sum = x + y;
+            for (i=0; i<rest.length; i++) {
+                sum += rest[i];
+            }
+            return sum;
+        }
+
+
+        var obj = {
+            birth: 1990,
+            getAge: function () {
+                var fn = () => new Date().getFullYear() - this.birth; //在箭头函数中的this所在上下文中的对象为obj, 因此this始终指向obj
+                return fn();
+            }
+        };
+        console.log(obj.getAge())
+        var fn = obj.getAge();
+        console.log(obj.getAge())
+
+
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

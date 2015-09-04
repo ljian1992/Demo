@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>闭包</title>
+    <script type="text/javascript">
+        'use strict';
+
+        /*闭包就是携带状态的函数，并且它的状态可以完全对外隐藏起来*/
+        function lazy_sum(arr) {
+            var sum = function () {
+                return arr.reduce(function (x, y) {
+                    return x + y;
+                });
+            }
+            return sum;
+        }
+
+        var f = lazy_sum([1, 2, 3]);
+        console.log(f());
+
+
+        /*在闭包中，返回的函数没有立即执行，而是调用时，才执行
+        因此，在返回函数当中不能引用任何循环变量，或者后面会发生变化的变量
+        需要绑定循环变量的当前值，1.创建一个新的函数并执行  2.采用let声明循环变量(很多流浪器不支持,目前就连火狐39.0.3都不支持)
+        */
+        function count(){
+            var arr = [];
+            for(var i=1; i<=3; ++i){        //变量i的作用域是整个函数,也就是说，i是压入数组的函数（也许叫栈比较适合）所共享的
+                arr.push(function(){        //
+                    return i * i;
+                });
+            }
+            return arr;
+        }
+
+      /*  function count3(){
+            var arr = [];
+            for(let i=1; i<=3; ++i){        //变量i的作用域是在for循环内,
+                arr.push(function(){        //
+                    return i * i;
+                });
+            }
+            return arr;
+        }*/
+
+        function count2(){
+            var arr = [];
+            for(var i=1; i<=3; ++i){
+                arr.push(function(n){
+                    return function(){
+                        return n*n;
+                    }
+                }(i));          //创建匿名函数并立即执行，也就是说它返回的是函数执行后的结果。
+            }
+            return arr;
+        }
+
+        var results = count();
+        var f1 = results[0];
+        var f2 = results[1];
+        var f3 = results[2];
+        var results2 = count2();
+        var f4 = results2[0];
+        var f5 = results2[1];
+        var f6 = results2[2];
+
+        //调用函数时，i已经等于4了，因此都是打印16
+        console.log(f1());
+        console.log(f2());
+        console.log(f3());
+
+
+        console.log(f4());
+        console.log(f5());
+        console.log(f6());
+
+        /*闭包应用小例子*/
+
+        //计数器
+        function create_counter(initial) {
+            var x = initial || 0;
+            return {
+                inc: function () {
+                    x += 1;
+                    return x;
+                }   //这里返回的是键值对
+            }
+        }
+
+        //实现python中偏函数的效果
+        function make_pow(n) {
+            return function (x) {
+                return Math.pow(x, n);
+            }
+        }
+
+
+    </script>
+
+</head>
+<body>
+
+</body>
+</html>

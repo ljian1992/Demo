@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>generator</title>
+    <script type="text/javascript">
+        /*generator是ES6引入的心的数据类型，和python中的是一样的*/
+
+        function* fib(max) {
+            var t, n = 0, a = 0, b = 1;
+
+            while (n < max) {
+                yield a;
+                t = a;
+                a = b;
+                b = t + b;
+                n++;
+            }
+        }
+
+        var f = fib(5);     //创建一个generator对象
+        f.next();
+        f.next();
+        f.next();
+        f.next();
+        f.next().value;     //获取yield的返回值
+
+        for(var x of fib(5)){
+            console.log(x)
+        }
+
+        function* next_id(){
+            var current_id = 0;
+
+            while(true){
+                yield ++current_id;
+            }
+
+        }
+
+        var f = next_id();
+        f.next();
+        f.next();
+        f.next();
+
+        console.log("next 4 time, current_id: %d",  f.next().value);
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

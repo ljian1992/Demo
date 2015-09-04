@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DIV_CSS布局：浮动及溢出处理</title>
+</head>
+
+<style type="text/css">
+    body{
+        padding:0;
+        margin:0;
+    }
+
+    /*浮动 float：浮动的框可以向左或向右移动，直到它的外边缘碰到包含框或另一个浮动框的边框为止
+        设置浮动的标记和没有设置浮动的标志挨着的时候，会受到影响,浮动类型与前者一致, 可以通过clear属性清除
+
+        属性： left, right
+    */
+    .div{
+        width:960px;
+        height:1000px;
+        margin:0 auto;
+        background-color: white;
+    }
+
+    .left{
+        float: left;
+        width: 260px;
+        height: 800px;
+        background-color: aqua;
+    }
+
+    .right{
+        float:right;
+        width:650px;
+        height:800px;
+        background-color: dodgerblue;
+        /*margin-bottom: 20px;*/
+    }
+
+    .clear_float{
+        clear: both;
+    }
+
+    .bottom{
+        width:960px;
+        height:200px;
+        background-color: black;
+
+        margin-top: 20px;
+    }
+
+
+    .overflow{
+        width:inherit;
+        height: 80px;
+        color: black;
+        background-color: orangered;
+        margin-bottom: 40px;
+    }
+
+    .overflow_hidden{
+        width:inherit;
+        height: 80px;
+        color: black;
+        background-color: orangered;
+        overflow: hidden;
+        margin-bottom: 40px;
+    }
+
+    /*溢出处理 overflow：当内容超出父容器时的处理方式：1.隐藏超出， 2.设置滚动条， 3.超出则设置滚动条，未超出则不设置
+            属性：hidden, scroll, auto
+
+            */
+    .overflow_scroll{
+        width:inherit;
+        height: 80px;
+        color: black;
+        background-color: orangered;
+        overflow: scroll;
+        margin-bottom: 40px;
+    }
+
+    .overflow_auto{
+        width:inherit;
+        height: 80px;
+        color: black;
+        background-color: orangered;
+        overflow: auto;
+        margin-bottom: 40px;
+    }
+
+</style>
+<body>
+    <div class="div">
+       <!-- <div class="left"></div>
+        <div class="right"></div>
+        <div class="bottom"></div> -->      <!--设置浮动的标记和没有设置浮动的标志挨着的时候，会受到影响,浮动类型与前者一致, 可以清楚浮动清除-->
+
+        <div class="left"></div>
+        <div class="right">
+            <div class="overflow">
+                <p>　
+                    这是overflow的情形，   这是overflow的情形，   这是overflow的情形，   这是overflow的情形，   这是overflow的情形，
+                    这是overflow的情形，   这是overflow的情形，   这是overflow的情形，   这是overflow的情形，   这是overflow的情形，
+                    这是overflow的情形，   这是overflow的情形，   这是overflow的情形，   这是overflow的情形，   这是overflow的情形，
+                     这是overflow的情形，
+                </p>
+            </div>
+
+            <div class="overflow_hidden">
+                <p>　
+                   这里设置overflow: hidden<br/>
+                    这里设置overflow: hidden,   这里设置overflow: hidden,  这里设置overflow: hidden.  这里设置overflow: hidden
+                    这里设置overflow: hidden,   这里设置overflow: hidden,  这里设置overflow: hidden.  这里设置overflow: hidden
+                    这里设置overflow: hidden,   这里设置overflow: hidden,  这里设置overflow: hidden.  这里设置overflow: hidden
+                    这里设置overflow: hidden,   这里设置overflow: hidden,  这里设置overflow: hidden.  这里设置overflow: hidden
+                    这里设置overflow: hidden,   这里设置overflow: hidden,  这里设置overflow: hidden.  这里设置overflow: hidden
+                </p>
+            </div>
+
+            <div class="overflow_scroll">
+                <p>
+                    这里设置overflow: scroll, 添加滚动条<br/>
+                    这里设置overflow: scroll, 添加滚动条    这里设置overflow: scroll, 添加滚动条    这里设置overflow: scroll,
+                    这里设置overflow: scroll, 添加滚动条    这里设置overflow: scroll, 添加滚动条    这里设置overflow: scroll,
+                    这里设置overflow: scroll, 添加滚动条    这里设置overflow: scroll, 添加滚动条    这里设置overflow: scroll,
+                    这里设置overflow: scroll, 添加滚动条    这里设置overflow: scroll, 添加滚动条    这里设置overflow: scroll,
+                    这里设置overflow: scroll, 添加滚动条    这里设置overflow: scroll, 添加滚动条    这里设置overflow: scroll,
+                    这里设置overflow: scroll, 添加滚动条    这里设置overflow: scroll, 添加滚动条    这里设置overflow: scroll,
+                    这里设置overflow: scroll, 添加滚动条    这里设置overflow: scroll, 添加滚动条    这里设置overflow: scroll,
+                </p>
+            </div>
+
+            <div class="overflow_auto">
+                <p>
+                    这里设置overflow: auto， 超出则添加滚动条<br/>
+                    这里设置overflow: auto， 超出则添加滚动条
+                    这里设置overflow: auto， 超出则添加滚动条   这里设置overflow: auto， 超出则添加滚动条
+                    这里设置overflow: auto， 超出则添加滚动条   这里设置overflow: auto， 超出则添加滚动条
+                    这里设置overflow: auto， 超出则添加滚动条   这里设置overflow: auto， 超出则添加滚动条
+                    这里设置overflow: auto， 超出则添加滚动条   这里设置overflow: auto， 超出则添加滚动条
+                    这里设置overflow: auto， 超出则添加滚动条   这里设置overflow: auto， 超出则添加滚动条
+                    这里设置overflow: auto， 超出则添加滚动条   这里设置overflow: auto， 超出则添加滚动条
+                </p>
+            </div>
+
+        </div>
+        <div class="clear_float"></div>
+        <div class="bottom"></div>
+
+    </div>
+</body>
+</html>

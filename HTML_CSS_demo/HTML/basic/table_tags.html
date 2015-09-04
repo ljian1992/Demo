@@ -1,0 +1,72 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>表格相关标记练习</title>
+</head>
+<body>
+    <!--
+    <table>
+        常见属性：
+                width：
+                height：
+                border：
+                align: left(default), center, right
+                cellspacing:单元格之间的距离(default="2")
+                cellpadding:单元格内容与边框的距离(default="2")
+                frame:控制表格边框最外层的线条款
+                    void:无边框
+                    above:仅有顶部
+                    below:仅有底部
+                    hsides:仅有底部和顶部
+                    lhs:仅有左边框
+                    rhsL:仅有右边框
+                    vsides：仅有左右两侧边框
+                    box：包括全部的四个边框
+                    border：包含全部四个边框
+                rules:控制是否显示和如何显示单元格之间的分割线
+                    none:无分割线
+                    rows:仅有行分割
+                    clos:仅有列分割, 发现火狐浏览器不支持这个
+                    groups:仅有行组合列组之间有分割线
+
+    <caption>: 表格标题
+            align: top(default), bottom, left, right
+    <tr>：表格行
+        bgcolor: 背景颜色
+        align:   水平对齐方式, top, bottom, middle
+        valign:  垂直对齐方式
+
+    <td>: 单元格，必须嵌入<tr>
+        bgcolor:单元格背景颜色
+        align:单元格水平格对齐方式
+        valign:单元格垂直对齐方式
+        width: 单元格高度
+        height:单元格高度
+        rowspan:单元格所占行数
+        colspan:单元格所占的列数
+    <th>: 单元格, 文字会加粗
+    -->
+    <table width="300px" height="100" border="1px" align="center"  cellpadding="0" frame="box" rules="all">
+        <caption align="right">表格的标题</caption>
+        <tr bgcolor="#f5f5dc" align="center" valign="center">
+            <th bgcolor="#5f9ea0" align="right" rowspan="2" colspan="2">班级</th>
+            <th>姓名</th>
+            <th>年龄</th>
+            <th>成绩</th>
+        </tr>
+        <tr>
+            <td>四年级一班</td>
+            <td>小李</td>
+            <td>12</td>
+            <td>98</td>
+        </tr>
+        <tr>
+            <td>四年级一班</td>
+            <td>小李</td>
+            <td>12</td>
+            <td>98</td>
+        </tr>
+    </table>
+
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>浏览器常用对象</title>
+
+    <script type="text/javascript">
+        //获取浏览器的内部宽度和高度（去除菜单栏、工具栏、边框等占位元素）
+        console.log("window inner size: " + window.innerWidth +  "x" + window.innerHeight);
+
+        //获取浏览器的整个宽度和高度
+        console.log("window outer size: " + window.outerWidth + "x" + window.outerHeight);
+
+
+       /* navigator对象：用于表示浏览器信息，可以获取：浏览器名称，版本，设置语言，操作系统类型等等
+       *    appName:浏览器名称
+       *    appVersion:浏览器版本
+       *    language:浏览器设置语言
+       *    platform:操作系统类型
+       *    userAgent:
+       * */
+        console.log("------------------------navigator----------------------")
+        console.log(
+                'appName: ' + navigator.appName+'\n'+
+                'appVersion: ' + navigator.appVersion + '\n'+
+                'language: ' + navigator.language + '\n' +
+                'platform: ' + navigator.platform + '\n' +
+                'userAgent: ' + navigator.userAgent + '\n'
+        );
+
+        /*screen对象：用于表示屏幕信息
+        *   width: 屏幕宽度
+        *   height: 屏幕宽度
+        *   colorDepth: 颜色位数
+        * */
+        console.log("------------------------screen----------------------")
+        console.log("screen size: " + screen.width+ 'x' + screen.height)
+
+        /*location: 用于表示当前页面的URL信息
+        *   protocol: 协议
+        *   host:网址
+        *   pathname:路径
+        *   search:
+        *   hash:
+        *   */
+        console.log("------------------------location----------------------")
+        console.log(
+                'protocol: ' + location.protocol + '\n' +
+                'host: ' + location.host + '\n' +
+                'pathname: ' + location.pathname + '\n' +
+                'search: ' + location.search + '\n' +
+                'hash: ' + location.hash + '\n'
+        );
+
+        /* document: 用于表示当前页面，HTML页面在浏览器中是以页面的文档对象模型(DOM: Document Object Model), DOM构造为对象树
+            因此：JavaScript能够改变HTML页面所有信息，并对事件作出反应
+        * */
+        document.title = '对象属性';
+
+
+        var list = ['aa', 'bb'];
+        if(list.indexOf('aa') !== -1){
+            alert("has");
+        }
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

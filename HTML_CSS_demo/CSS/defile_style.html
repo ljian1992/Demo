@@ -1,0 +1,78 @@
+<!--
+问题：1.各种定义方式的应用场合？
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>CSS选择器</title>
+
+
+    <style type="text/css">
+       /*标记定义*/
+       p{color:red; font-size:18px}
+
+        /*class定义*/
+        .green_50px{color:green; font-size:50px;}
+        .green_50px.red_30px{color:red; font-size:30px;}
+
+        /*ID定义*/
+        #blue_40px{color:blue; font-size:40px;}
+        #blue_20px{color:blue; font-size:20px;}
+
+        /*优先级:1.ID定义 > class定义 > 标记定义, 注意了这里是要在同一个标签下
+                2.定义重名样式，新定义的覆盖后定义的*/
+
+        /*组合定义
+            有共同属性的类，标记，ID, 可以把共同属性提取，形成组合定义，若各自要有自己的行为，则可以自己再次定义，若同名会覆盖
+            这一点和类的继承有点像
+        */
+        h1,h2,h3,.blue,#id_cornflowerblue{color:cornflowerblue;font-style:Italic}
+
+        h1{font-size:20px;}
+        h2{font-size:20px;}
+        h3{font-size:20px;color:black;}
+
+
+        /*伪元素选择器*/
+        a:link{color: red;}          /*未点击的样式*/
+        a:hover{color:royalblue;}    /*鼠标放上去的样式*/
+        a:active{color:green;}      /*访问时的样式*/
+        a:visited{color:black;}     /*放过的样式*/
+    </style>
+
+</head>
+<body>>
+    <h1 class="green_50px">class选择器</h1>
+    <p>标记选择器</p>
+    <p class="green_50px">class选择器</p>
+
+    <div class="green_50px">
+        子类选择器参照
+       <p class="red_30px">
+            子类选择器样式
+       </p>
+    </div>
+
+    <h2 id="blue_40px">ID定义</h2>
+
+    <div id="blue_20px", class="green_50px">
+         <h2>ID定义优先级高于class定义：输出蓝色，20字号</h2>
+    </div>
+
+    <div>
+        <h1>组合选择器定义</h1>
+        <h2>组合选择器定义</h2>
+        <h3>组合选择器定义</h3>
+        <h5 class="blue">组合选择器定义</h5>
+        <h6 id="id_cornflowerblue">组合定义</h6>
+    </div>
+
+    <div>
+        <a href="http://www.baidu.com">伪元素选择器1</a>
+        <a href="http://www.fffffffffff.com">伪元素选择器2</a>
+        <a href="http://www.fffffffffff.com">伪元素选择器3</a>
+    </div>
+</body>
+</html>

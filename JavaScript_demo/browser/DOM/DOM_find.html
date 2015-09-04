@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>查找DOM</title>
+    <script type="text/javascript">
+        /*
+
+        方式1：
+        DOM查找常用属性和方法:
+            children: 所有直属的子节点
+            firstElementChild:第一个节点
+            lastElementChild:最后一个节点
+            getElementById(): 通过ID查找，因为ID是唯一的所以不是Elements，
+            getElementsByTagName(): 通过tagName查找
+            getElementsByClassName(): 通过CSS类查找，
+
+            一下两个方法，不是
+            querySelector():
+            querySelectorAll():
+            selector记法，待研究
+        *
+        * */
+/*
+        // 选择<p>JavaScript</p>:
+        var js = document.querySelector("#test-p");
+
+        // 选择<p>Python</p>,<p>Ruby</p>,<p>Swift</p>:
+        var arr = document.querySelectorAll('div.c-red.c-green > p');
+
+        // 选择<p>Haskell</p>:
+        var haskell = document.getElementsByClassName('c-green')[1].lastElementChild;*/
+
+
+
+
+    </script>
+
+</head>
+<body>
+<div id="test-div">
+    <div class="c-red">
+        <p id="test-p">JavaScript</p>
+        <p>Java</p>
+    </div>
+    <div class="c-red c-green">
+        <p>Python</p>
+        <p>Ruby</p>
+        <p>Swift</p>
+    </div>
+    <div class="c-green">
+        <p>Scheme</p>
+        <p>Haskell</p>
+    </div>
+</div>
+</body>
+</html>

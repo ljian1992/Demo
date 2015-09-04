@@ -1,0 +1,55 @@
+Tkinter → tkinter
+tkMessageBox → tkinter.messagebox
+tkColorChooser → tkinter.colorchooser
+tkFileDialog → tkinter.filedialog
+tkCommonDialog → tkinter.commondialog
+tkSimpleDialog → tkinter.simpledialog
+tkFont → tkinter.font
+Tkdnd → tkinter.dnd
+ScrolledText → tkinter.scrolledtext
+Tix → tkinter.tix
+ttk → tkinter.ttk
+
+
+python3.4
+tkinter.scrolledtext
+    Text widget with a vertical scroll bar built in.
+tkinter.colorchooser
+    Dialog to let the user choose a color.
+tkinter.commondialog
+    Base class for the dialogs defined in the other modules listed here.
+tkinter.filedialog
+    Common dialogs to allow the user to specify a file to open or save.
+tkinter.font
+    Utilities to help work with fonts.
+tkinter.messagebox
+    Access to standard Tk dialog boxes.
+tkinter.simpledialog
+    Basic dialogs and convenience functions.
+tkinter.dnd
+    Drag-and-drop support for tkinter. This is experimental and should become deprecated when it is replaced with the Tk DND.
+turtle
+    Turtle graphics in a Tk window.
+
+
+python2.7
+ScrolledText
+    Text widget with a vertical scroll bar built in.
+tkColorChooser
+    Dialog to let the user choose a color.
+tkCommonDialog
+    Base class for the dialogs defined in the other modules listed here.
+tkFileDialog
+    Common dialogs to allow the user to specify a file to open or save.
+tkFont
+    Utilities to help work with fonts.
+tkMessageBox
+    Access to standard Tk dialog boxes.
+tkSimpleDialog
+    Basic dialogs and convenience functions.
+Tkdnd
+    Drag-and-drop support for Tkinter. This is experimental and should become deprecated when it is replaced with the Tk DND.
+turtle
+    Turtle graphics in a Tk window.
+
+

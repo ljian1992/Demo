@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JSON</title>
+    <script type="text/javascript">
+        'use strict';
+
+        /*-------------------序列化-----------------------*/
+        var Ljian = {
+            name: 'Ljian',
+            age: 23,
+            gender: 'male'
+        };
+
+        var sj = JSON.stringify(Ljian);
+        console.log("转换后：%s", sj);
+
+        //指定转换自己想要的属性
+        var sj2 = JSON.stringify(Ljian, ['name', 'age']);
+        console.log("只有name, age属性：%s", sj2);
+        //对键值对，转换成JSON字节序
+        var sj3 = JSON.stringify(Ljian, ['name', 'age'], function(key, value){
+            if('string' == typeof value){
+                return value.toUpperCase();
+            }
+            return value;
+        });
+        console.log("把字符串转大写后，再转JSON: %s", sj3);
+
+        //精确控制对象的转换, 在对象中添加toJSON()方法
+        var ljian = {
+            name: 'Ljian',
+            age: 23,
+            gender: 'male',
+
+            toJSON: function(){
+                return {                //返回键值对
+                    'name': this.name,
+                    'age': this.age
+                }
+            }
+        }
+
+        var sj4 = JSON.stringify(ljian);
+        console.log("精确控制：%s", sj4);
+
+        //缩进使到格式好看
+        var sj5 = JSON.stringify(Ljian, null, '     ');
+        console.log("缩进：\n%s", sj5);
+
+
+        /*-------------------反列化-----------------------*/
+        var obj = JSON.parse(sj);
+
+        //添加函数，对解析出来的数据进行处理，后生成对象
+        var obj2 = JSON.parse(sj, function(key, value){
+            if('name' === key){
+                return value + '先生';
+            }
+            return value;
+        });
+
+        if('Ljian先生' === obj2.name){
+            console.log("通过函数处理解析出来的属性成功");
+        }
+
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

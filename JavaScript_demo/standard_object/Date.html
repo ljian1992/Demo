@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Date对象</title>
+
+    <script type="text/javascript">
+        /*Date对象来表示日期和时间*/
+        var now = new Date();
+        now; // Wed Jun 24 2015 19:49:22 GMT+0800 (CST)
+        now.getFullYear(); // 2015, 年份
+        now.getMonth(); // 5, 月份，注意月份范围是0~11，5表示六月
+        now.getDate(); // 24, 表示24号
+        now.getDay(); // 3, 表示星期三
+        now.getHours(); // 19, 24小时制
+        now.getMinutes(); // 49, 分钟
+        now.getSeconds(); // 22, 秒
+        now.getMilliseconds(); // 875, 毫秒数
+        now.getTime(); // 1435146562875, 以number形式表示的时间戳
+
+
+        /*字符串转时间*/
+        var date = new Date(2016, 0, 1, 1, 0, 0,0);
+        console.log(date);
+
+        var date2 = new Date(Date.parse("2016-01-01T00:00:00.000+08:00"));
+        console.log(date2);
+
+        /*本地时间与UTC时间互转*/
+        var now = new Date();
+        now.toLocaleString();
+        now.toUTCString();
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

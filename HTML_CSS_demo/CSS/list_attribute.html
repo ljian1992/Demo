@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>CSS常见属性列表属性</title>
+
+    <style type="text/css">
+        /*标记类型*/
+        .ul_style_type {
+            list-style-type:square;
+            list-style-image:none;
+        }
+
+        /*标记位置*/
+        .ul_inside{
+            list-style-position:inside;
+        }
+        .ul_outside{
+            list-style-postion:outside;
+        }
+
+        /*标记图片, 图片的优先级>标记类型*/
+        .ui_image{
+            list-style-image:url(image/list_image.png);
+        }
+
+        /*简写方式： list-style: square inside url*/
+        .ul_ad{
+            list-style:square outside url(image/list_image.png)
+        }
+    </style>
+</head>
+<body>
+    <ul class="ul_style_type">
+        <li>无序列表</li>
+        <li>无序列表</li>
+        <li>无序列表</li>
+        <li>无序列表</li>
+        <li>无序列表</li>
+    </ul>
+
+    <ol>
+        <li>有序列表</li>
+        <li>有序列表</li>
+        <li>有序列表</li>
+        <li>有序列表</li>
+        <li>有序列表</li>
+    </ol>
+
+
+    <p>该列表的 list-style-position 的值是 "inside"：</p>
+    <ul class="ul_inside">
+        <li>交响诗篇</li>
+        <li>钢之炼金术师FA</li>
+        <li>血界战线</li>
+    </ul>
+
+    <p>该列表的 list-style-position 的值是 "outside"：</p>
+    <ul class="ul_outside">
+        <li>交响诗篇</li>
+        <li>钢之炼金术师FA</li>
+        <li>血界战线</li>
+    </ul>
+
+    <p>该列表的采用图像图标</p>
+    <ul class="ui_image">
+        <li>交响诗篇</li>
+        <li>钢之炼金术师FA</li>
+        <ul class="ul_style_type">
+            <li>交响诗篇</li>
+            <li>钢之炼金术师FA</li>
+            <li>血界战线</li>
+        </ul>
+        <li>血界战线</li>
+    </ul>
+
+    <p>简写list-style：list-style:square outside url(image/list_image.png)
+        <br>可以看到图片的优先级别更高
+    </p>
+    <ul class="ul_ad">
+        <li>交响诗篇</li>
+        <li>钢之炼金术师FA</li>
+        <li>血界战线</li>
+    </ul>
+
+
+</body>
+</html>

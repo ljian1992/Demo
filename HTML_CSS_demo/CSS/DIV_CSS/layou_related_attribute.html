@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>布局相关属性</title>
+
+    <style type="text/css">
+        body{
+            padding:0;
+            margin:0;
+        }
+
+
+        /*定位方式, 定位,
+            定位方式
+                relative:正常定位
+                absolute:根据父元素定位
+                fixed:根据浏览器窗口进行定位
+                static:没有定位
+                inherit:继承
+            定位：
+                top:, bottom, left, right
+
+            层优先级:
+                z-index: 默认为0， 优先级:1>0, 相同优先级，后出现覆盖前面的
+
+            显示属性：
+                display
+                    none: 层不显示
+                    block：块状显示, 在元素后面换行，可以把内联转换为块
+                    inline：内链显示，多块可以显示在同一行， 可以把块转换成内联元素
+        */
+        .div{
+            width: 300px;
+            height: 200px;
+            background-color: cornflowerblue;
+            position:relative;          /*子元素要相对于父元素定位，要设置成正常定位*/
+            left:10px;
+            top: 10px;
+
+
+
+        }
+        
+        span{
+            position: absolute;
+            background-color: cadetblue;
+            color: white;
+
+            top: -10px;
+            right: 0;
+
+        }
+
+        .dsp_block{
+            position: absolute;
+            background-color: cadetblue;
+            color: white;
+
+            top: -10px;
+            right: 0;
+
+            width: 300px;
+            display: block;
+
+
+        }
+
+        .fixed_z_index{
+            position: fixed;                /*网页客服，固定死活不动*/
+            background-color: cadetblue;
+            color: white;
+            top:100px;
+
+            z-index:1
+        }
+
+        .fixed{
+            position: fixed;
+            background-color: cadetblue;
+            color: white;
+            top:300px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="fixed_z_index">
+        <p>定位方式为：fixed</p>
+        <p>显示优先级：1</p>
+    </div>
+
+    <div class="div">
+        <span>浏览次数: 333
+    </div>
+
+    <br><br>
+    <div class="fixed">
+        <p>定位方式为：fixed</p>
+        <p>显示优先级：0</p>
+    </div>
+
+    <div class="div">
+        <span class="dsp_block">内联显示转块状显示</span>
+    </div>
+
+
+
+    <div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+    </div>
+</body>
+</html>

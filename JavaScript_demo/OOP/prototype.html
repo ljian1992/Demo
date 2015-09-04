@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>创建对象</title>
+
+    <script type="text/javascript">
+        /*在JavaScript当中是通过原型(prototype)来实现面向对象编程的, 通过原型来创作出对象，有点像C++中的继承，但是通过原型
+         创建出来的对象原型的一份copy，属性和方法都是自己独有的一份，无法实现共享，于是Brendan Eich就设计出了prototype对象，把需要
+         共享的属性和方法，扔进该对象里。
+
+         * 每一个对象都有条原型链：
+         *    例如
+         *    var arr = [];  原型链：arr--> Array.prototype --> Object.prototype --> null
+         *    方法，属性的搜索路径：是逐级往上搜
+         *
+         * */
+
+        //构造函数, 方式1
+        function Dog(name){
+            this.name = name;
+            this.running = function(){
+                console.log("running.....")
+            }
+        }
+
+        var dog = new Dog("旺财");                //在函数前加上new关键字, 这就像C++中，调用构造函数，构造出对象
+        var dog2 = new Dog("大黄");
+
+        if(dog.running !== dog2.running){        //函数running()dog, dog2各自拥有一份
+            console.log("不是同一个函数")
+        }
+
+        // 方式2：
+        function Dog2(name){
+            this.name = name;                   //this指向新创建的对象
+        }
+
+        Dog2.prototype.running = function(){
+            console.log("running.....");
+        }
+
+        var dog = new Dog2("旺财");
+        var dog2 = new Dog2("大黄");
+        if(dog.running === dog2.running){
+            console.log("是同一个函数")
+        }
+
+
+        // 方式3：
+        function Student(props) {
+            this.name = props.name || '匿名'; // 默认值为'匿名'
+            this.grade = props.grade || 1; // 默认值为1
+        }
+
+        Student.prototype.hello = function () {
+            alert('Hello, ' + this.name + '!');
+        };
+
+        function createStudent(props) {
+            return new Student(props || {})     //当调用时没有参数是，传入的参数将为{}
+        }
+
+        var sLjian = JSON.stringify(createStudent({
+            name: 'Ljian',
+        }))
+
+        //将JSON数据转换成对象
+        var stu = createStudent(JSON.parse(sLjian));
+        console.log(stu);
+
+
+    </script>
+
+</head>
+<body>
+
+</body>
+</html>

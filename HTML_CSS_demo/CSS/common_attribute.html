@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>CSS常见属性</title>
+
+    <style type="text/css">
+
+          /*----------------------------字体颜色------------------------------*/
+        /*颜色*/
+        .color_attribute{color:green}
+        .color_attribute{color:#ffffff}
+        .color_attribute{color:#fff}        /*简写*/
+        .color_attribute{color:rgb(255,255,255)}
+        .color_attribute{color:rgba(255,255,255,1)}     /*最后模糊位取值范围，0~1*/
+
+        /*----------------------------字体属性------------------------------*/
+        /*字体大小*/
+        body{font-size:20px}
+        h1{font-size:200%}          /*父元素的百分比*/
+        h2{font-size:50%}
+        h3{font-size:smaller}       /*比父元素小*/
+        h4{font-size:larger}        /*比父元素大*/
+        h5{font-size:inherit}       /*继承父元素*/
+
+        /*字体设置：
+        英文字体不用引号(采用中文字体的英文名，这样就避免了可能遇到)，上优先级左高右低*/
+        h6{font-family:monaco,"楷体","微软雅黑";}     /*设置字体，*/
+
+        /*字体加粗 normal, bold, bolder, lighter*/
+        .lighter{font-weight:lighter;font-size:20px;}
+        .normal{font-weight:normal;font-size:20px;}
+        .bold{font-weight:bold;font-size:20px;}
+        .bolder{font-weight:bolder;font-size:20px;}
+
+        /*字体样式 normal italic oblique inherit*/
+        .style_normal{font-style:normal; font-size:20px}
+        .style_italic{font-style:italic; font-size:20px}
+        .style_oblique{font-style:oblique; font-size:20px}
+        .style_inherit{font-style:inherit; font-size:20px}
+
+
+        /*小型大写字母显示文本 normal small-caps inherit*/
+        .text_normal{font-variant:normal; font-size:20px}
+        .text_small-caps{font-variant:small-caps; font-size:20px}
+        .text_inherit{font-variant:inherit; font-size:20px}
+
+        /*----------------------------背景属性------------------------------*/
+        /*背景颜色*/
+        .bg_color{background-color: green;}
+
+        /*背景图片  背景重复  背景位置*/
+        .bg_picture{
+            background-image:url(image/Totoro.png);
+            background-repeat:no-repeat;            /*repeat,repeat-x, repeat-y*/
+            background-position:top,center;             /*(x,y), left, center, right, top, bottom, 数值*/
+        }
+
+        /*简写形式：background:背景颜色，背景图片，背景重复，背景位置*/
+        .bg_ad{
+            background:white url(image/Totoro.png) no-repeat left top;
+        }
+
+        /*----------------------------文本属性------------------------------*/
+        /*横向排列*/
+        .text_align{text-align:center}          /*left, center, right*/
+
+        /*文本行高*/
+        .div{
+            width:1000px;
+            height:1000px;
+            background-color: cadetblue;
+        }
+        .text_height{
+            font-size:20px;
+            line-height:10px;           /*行高比字体小，会出现重叠，比字体大，则上下间隔一定距离*/
+            /*line-height:200%;*/        /*基于字体的百分比*/
+        }
+
+        /*首行缩进*/
+        .text_retract{
+
+            font-size:15px;
+            /*text-indent: 50%; */    /*父容器的50%缩进*/
+            /*text-indent:inherit*/   /*继承*/
+            text-indent:30px;       /*固定值缩进*/
+
+          }
+
+        /*字符间距 normal, length, inherit*/
+        .text_letter_spacing{
+            font-size:20px;
+            letter-spacing:20px;
+        }
+
+        /*单词间距*/
+        .text_word_spacing{
+            font-size: 20px;
+            word-spacing: 40px;
+        }
+
+        /*文本方向 ltr, rtl inherit*/
+        .text_orientation{
+            font-size: 20px;
+            direction: rtl;
+        }
+
+        /*文本大小写  capitalize, uppercase, lowercase, inherit*/
+        .text_capital_lower{
+            font-size: 20px;
+            text-transform:capitalize
+        }
+
+
+      /*----------------------------边框属性------------------------------*/
+         div{
+				width:100px;
+				height:100px;
+				float:left;
+				margin-right:10px;
+				background-color:#f60;
+				border-width:4px;
+			}
+
+
+           /*边框风格   支持单向风格和统一风格
+
+
+                属性：
+                    none:   无边框
+                    solid:  直线边框
+                    dashed: 虚线边框
+                    dotted: 点状边框
+                    double: 双线边框
+                    froove: 突槽边框
+                    ridge:  垄状边框
+                    inset:
+                    outset:
+                    inherit:
+
+        */
+          .border_style_solid{
+              border-left-style:solid;          /*单向风格*/
+              border-right-style:solid;
+
+          }
+          .border_style_dashed{
+              border-style:dashed;
+          }
+          .border_style_dotted{
+              border-style:dotted;
+          }
+          .border_style_double{
+              border-style:double;
+          }
+
+          .border_style_ridge,.border_style_inset,.border_style_outset
+          {
+              border-width:20px;
+              border-color:green red yellow blue;
+
+          }
+          .border_style_ridge{
+              border-style:ridge;
+          }
+          .border_style_inset{
+              border-style:inset;
+          }
+         .border_style_outset{
+              border-style:outset;
+          }
+
+        /*边框框度： 支持统一风格，单独风格
+                属性值：thin medium thick px inherit*/
+         .border_width{
+            border-width: 10px;
+            border-style: solid;
+        }
+
+        /*边框颜色：支持统一风格，单独风格
+             一个值：border-color：（上、下、左、右）；
+             两个值：border-color：（上下） （左右）；
+             三个值：border-color:（上） （左、右） （下）;
+              四个值：border-color：（上）（右）（下）（左）;
+
+        */
+
+        .border_color{
+            border-color: green;
+            border-width: 10px;
+            border-style:solid;
+        }
+
+        /*简写：border:边框风格，宽度，颜色*/
+        .border_ad {
+            border:solid 50px red
+        }
+
+
+    /*----------------------------列表属性------------------------------*/
+        .class_none{font-size:20px}
+        /*标记类型*/
+        .ul_style_type {
+            list-style-type:circle
+        }
+
+        /*标记位置*/
+        .l_list_inside{
+            list_style_position:inside
+        }
+
+    </style>
+</head>
+<body class="bg_ad">
+        字体大小：父元素
+    <h5>字体大小：继承父元素</h5>
+    <h1>字体大小：父元素200%</h1>
+    <h2>字体大小：父元素50%</h2>
+    <h3>字体大小：比父元素小</h3>
+    <h4>字体大小：比父元素大</h4>
+
+
+    <h6>字体类型</h6>
+
+    <h1 class="normal">正常字体</h1>
+    <h2 class="bold">字体加粗</h2>
+    <h3 class="bolder">字体加加粗</h3>
+    <h4 class="lighter">字体变细</h4>
+
+
+    <h1 class="style_normal">字体样式：正常</h1>
+    <h2 class="style_italic">字体样式：斜体</h2>
+    <h3 class="style_oblique">字体样式：倾斜</h3>
+    <h4 class="style_inherit">字体样式：继承样式</h4>
+
+    <h1 class="text_normal">小型大写字母显示文本标准：Hello world</h1>
+    <h2 class="style_italic">小型大写字母显示大写显示：Hello world</h2>
+    <h3 class="text_small-caps">小型大写字母显示继承：hello world</h3>
+    <h4 class="text_inherit">小型大写字母显示文本：hello world</h4>
+
+    <h1 class="bg_color">背景颜色设置</h1>
+    <h2 class="bg_picture">背景图片</h2>
+
+    <!--********************************文本属性********************************-->
+
+    <div class="div">
+        <br>----------------文本属性----------------
+        <p class="text_align">文本排列: 居中</p>
+        <pre class="text_height">
+            文本行高：
+            文本行高:
+        </pre>
+        <p class="text_retract">
+            首行缩进，首行缩进，首行缩进，首行缩进，首行缩进，首行缩进，首行缩进，首行缩进
+            首行缩进，首行缩进，首行缩进，首行缩进，首行缩进，首行缩进，首行缩进，首行缩进
+        </p>
+
+        <p class="text_letter_spacing">
+            字体间距，字体间距
+        </p>
+
+        <p class="text_word_spacing">
+            单词间距  单词间距  单词间距
+            <br>
+            word word word word
+        </p>
+
+        <p class="text_orientation">
+            文字方向：不求甚解是危险的
+        </p>
+
+        <p class="text_capital_lower">
+            hello world
+        </p>
+
+    </div>
+
+    <!--********************************边框属性********************************-->
+
+    <br>
+    <br>
+    <div class="border_style_none">none 无边框</div>
+    <div class="border_style_solid">solid 直线边框</div>
+    <div class="border_style_dashed">dashed 虚线边框</div>
+    <div class="border_style_dotted">dotted 点状边框</div>
+    <div class="border_style_double">double 双边线边框</div>
+    <div class="border_style_ridge">rideg 垄状边框</div>
+    <div class="border_style_inset">inset 边框</div>
+    <div class="border_style_outset">outset 边框s</div>
+
+
+    <div class="border_width">边框宽度</div>
+    <div class="border_color">边框颜色</div>
+    <div class="border_ad">简写测试</div>
+
+
+ <!--********************************列表属性********************************-->
+
+     <ul class="ul_style_type">
+         <li>无序列表</li>
+         <li>无序列表</li>
+         <li>无序列表</li>
+         <li>无序列表</li>
+         <li>无序列表</li>
+     </ul>
+
+     <ol>
+         <li>有序列表</li>
+         <li>有序列表</li>
+         <li>有序列表</li>
+         <li>有序列表</li>
+         <li>有序列表</li>
+     </ol>
+
+
+
+
+
+
+</body>
+</html>

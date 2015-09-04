@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JavaScript函数的定义与调用</title>
+    <script type="text/javascript">
+        'use strict';
+        /*在JavaScript当中，函数可Python一样也是变量*/
+
+        //定义方式1：
+        function add(a, b){
+            return a + b;
+        }
+
+        //定义方式2：定义匿名函数，然后赋值给某个变量, JavaScript中的匿名函数，没什么限制，不是Python那么弱，语句只能是表达式
+        var add = function(a, b){
+            return a + b;
+        };
+
+        //定义匿名函数，并立即执行
+       function(x){return x*x})(3);
+
+
+
+        /*----------------函数参数----------------------
+        * JavaScript允许传入任意个参数，却不影响调用，多了不理会，少了，那个参数接收到的就是undefined，然后计算结果可能就是NaN。
+        * 因此需要对参数进行检查， 利用： typeof 检查参数类型
+        *
+        * 由于JavaScript当中允许传入任意个参数，这就需要对多余的参数，不足参数时进行处理，所以这就又了arguments, 在只关心多余的参数时，
+        * 一直用用arguments进行遍历不是很方便，这就有了reset参数的引入
+        * */
+
+        //参数类型检查
+        function add(a, b){
+            if (typeof a !== 'number' && typeof b !== 'number'){
+                throw 'Not a number';
+            }
+
+            return a + b;
+        }
+
+        //arguments关键字: 指向当前调用者，传入的额所有参数，可用于判断传入的参数的个数，然后在函数不定义参数的情况下，能通过arguments获取
+        //参数值
+        function foo(x){
+            for (var i=0; i<arguments.length; ++i){
+                console.log(i);
+            }
+
+        }
+        foo(100, 200, 300);
+
+        //不定义，参数，获取参数值
+        function foo2(){
+            if (0 === arguments.length){
+                return 0;
+            }
+
+            if (1 === arguments.length){
+                var a = arguments[0];
+                return a;
+            }
+
+        }
+        foo2(10);
+
+        //rest参数（ES6引入的）: 获取额外的参数, 有额外参数：reset接收， 没有额外的参数：reset为空数组
+        function foo3(a, b, ...rest){
+            console.log('a = ', a);
+            console.log('b = ', b);
+            console.log(rest)
+        }
+        console.log("-------------reset参数测试----------------")
+        console.log("有额外参数");
+        foo3(1, 2, 3, 4, 5, 6)
+
+        console.log("没有额外的参数")
+        foo3(1);
+
+    </script>
+
+</head>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>typeof</title>
+    <script type="text/javascript">
+        /*利用操作符:typeof 可以获取对象的类型，它返回的是一个字符串
+        * 数字：        number
+        * 字符串：      string
+        * 布尔值：      boolean
+        * undefined:   undefined
+        * 函数：        function
+        * 对象：        object
+        * null, 数组，对象的类型都是对象，用typeof无法区分
+        * 判断Array: Array.isArray(arr)
+        * 判断null： myVar === null
+        *
+        * */
+        console.log("数字，typeof 123: ", typeof 123 );
+        console.log("数字，typeof 123.123: ", typeof 123.123 );
+        console.log("数字，typeof NaN: ", typeof NaN );
+        console.log("字符串，typeof ’string‘: ", typeof 'string');
+        console.log("布尔值，typeof true: ", typeof true );
+        console.log("对象，typeof []: ", typeof [] );
+        console.log("对象，typeof {}: ", typeof {} );
+        console.log("对象，typeof null: ", typeof null );
+        console.log("undefined，typeof undefined: ", typeof undefined );
+        console.log("函数，typeof Math.pow: ", typeof Math.pow );
+
+        /**/
+
+
+        /*包装对象：把数字，字符串，布尔值...包装成对象.
+        * 包装成对象后，和原来的值，一样，不过类型改变成了object, 因此，原始值===包装后的值，会返回false, 这貌似没什么用处
+        * */
+        var number = new Number(123);
+        var boolean = new Boolean(true);
+        var string = new String('str')
+        console.log("----------------转换成对象后的类型-----------------")
+        console.log("new Number(123)： ", typeof number);
+        console.log("new boolean(true)： ", typeof boolean);
+        console.log("new String('str')： ", typeof string);
+
+        if(1234 !== new Number(1234)){
+            console.log("1234 != new Number(1234)");
+        }
+
+        /*类型转换:
+        * 几乎所有类型都有toString()方法，null, undefined没有
+        * Number()：string --> number
+        * Boolean():string --> boolean
+        * String(): number --> string
+        * */
+        var n = Number('123');
+        var b = Boolean('true');
+        var s = String(123);
+        var s2 = n.toString();
+        var s3 = (123).toString();
+
+
+        if(!Array.isArray(123)){
+            console.log("123 is not a list")
+        }
+
+
+        /*判断是否存在某个全局变量和局部变量
+        *  typeof window.myVar === 'undefined'
+           typeof myVar === 'undefined'
+        * */
+        console.log("--------------判断是否存在某全局变量和局部变量-----------")
+        var n = 123;
+        if(!'undefined' === typeof window.n){
+             console.log("全局变量n不存在")
+        }
+        else{
+             console.log("全局变量n存在")
+        }
+
+
+
+    </script>
+
+
+</head>
+<body>
+
+</body>
+</html>

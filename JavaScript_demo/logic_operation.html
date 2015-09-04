@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>逻辑运算符</title>
+    <script type="text/javascript">
+    /*
+        在JavaScript当中 && ||， 不仅仅是返回true false, 还可以放回对象
+        a && b : 将a, b转换为Boolean类型, 再执行逻辑与, true返回b, false返回a
+            因为，短路原则，a,b同时为真时，才为真，因此当判断a为假时，就立即返回a了，....
+
+        a || b : 将a, b转换为Boolean类型, 再执行逻辑或, true返回a, false返回b
+
+        JavaScript中：'', null, undefined, NaN, false为false, 其他为true
+        转换规则：
+            '', null, undefined, NaN, false为false为false, 其它为true
+         */
+        if('' || null || undefined || NaN || false){
+            //alert("'', null, undefined, NaN, false中有的值为true");
+        }else{
+            //alert("false: '', null, undefined, NaN, false");
+        }
+
+        //a && b
+        var val = '123' && '12';       //true, 返回'12'
+        console.assert("12" === val);
+
+        var val2 = undefined && '13';         //false, 返回NaN
+        console.assert(undefined === val2);
+
+        // a || b
+        var val3 = '123' || '12';       //true, 返回'123'
+        console.assert('123' === val3);
+
+        var val4 = '' || undefined;           //false, 返回NaN
+        console.assert(undefined === val4);
+
+
+
+
+
+
+
+
+
+    </script>
+
+</head>
+<body>
+
+</body>
+</html>

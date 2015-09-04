@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "D:/GitHub/python/testpython3.4/Exception_Debug/exception.py", line 24, in <module>
+    r = 10 / 0
+ZeroDivisionError: division by zero

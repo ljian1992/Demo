@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>DIV_CSS布局之盒模型</title>
+
+    <style type="text/css">
+
+        /*盒模型
+            margin:盒子外边距
+            border:盒子边框 (一定要跟边框类型才有意义)
+            padding:内边距
+            width:盒子宽度
+            height:盒子高度
+
+        */
+
+        .div{
+            width: 600px;
+            height: 600px;
+            margin:0 auto;      /*居中显示*/
+            background-color: cornflowerblue;
+        }
+
+        .diva{
+            float:left;
+            width: 240px;
+            height: 240px;
+            background-color: white;
+        }
+
+        .divb{
+            float:left;
+            width: 240px;
+            height: 240px;
+            background-color: orangered;
+        }
+
+        .div div{
+            margin: 10px;
+            border: dashed 10px;
+            padding: 10px;
+
+
+        }
+    </style>
+
+</head>
+<body>
+
+    <div class="div">
+        <div class="diva"></div>
+        <div class="divb"></div>
+    </div>
+</body>
+</html>

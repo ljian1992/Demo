@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>map+reduce+filter</title>
+
+    <script type="text/javascript">
+        'use strict';
+
+        /*map, reduce,filter和Python中的是一样的*/
+        var arr = [1, 2, 3, 4, 5, 6, 7];
+        var arr2 = arr.map(function(x){
+            return x*x;
+        });
+        console.log("arr：%s", arr);
+        console.log("arr.map()后返回的值：%s", arr2);
+
+        console.log("arr.reduce(): 1+2...+7 = %d", arr.reduce(function(x, y){
+            return x + y
+        }));
+
+        console.log("利用filter()过滤偶数：%s", arr.filter(function(x){
+            return x % 2 !== 0;
+        }));
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

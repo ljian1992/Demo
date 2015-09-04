@@ -1,0 +1,89 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>表单练习</title>
+</head>
+<!--
+    <from>:
+        name:
+        action: 传送地址，不需要传输则设置为no
+        method: get(default), post
+        enctype:编码凡是，打开方式
+        target:指定目标窗口
+    <input>: 文本域和密码域，单标记
+        type:
+            文本输入类：
+                text(default)
+                password
+            按钮类：
+                submit: 提交按钮
+                reset:重置按钮, value中有值，则充值未value中的值
+                button:普通按钮
+                radio:单选按钮
+                checkebox:复选框
+                checked:设置默认选中项
+
+
+            杂乱：
+                hidden:隐藏表单域
+        name: 定义控件名称
+        value:打开网页的时候，文本框中的内容
+        size: 设置输入框的长度
+        maxlenght:文本输入框中最大的字符数
+        placeholder:规定帮助用户填写输入字段的提示。
+        required:指示输入字段的值是必需的。
+
+    <textarea>: 多行文本
+        name rows cols
+
+    <select>:菜单下拉文本域
+        multiple:多选
+        size:列表高度
+        name:列表名称
+    <option>:<select>的选项
+
+-->
+
+<body>
+    <form action="2.html" method="get">
+        账号：<input name="name"  size="20" maxlength="10">
+        <br>
+        密码：<input name="password" type="password" size="20">
+        <br>
+
+        <br>
+        性别：<input type="radio" name="gender" >男<input type="radio" name="gender">女
+        <br>
+        爱好：<input type="checkbox" checked>唱歌<input type="checkbox">跳舞
+
+        <input type="hidden" value="隐藏的标签">
+        <br>
+        介绍：
+        <textarea name="self_introduction"cols="30" rows="10"></textarea>>
+
+        <br>
+        单选地址：
+        <select name="address" multiple>
+            <option>广州</option>
+            <option>深圳</option>
+            <option>珠海</option>
+        </select>
+
+        <br>
+        多选地址：
+        <select name="address">
+            <option>广州</option>
+            <option>深圳</option>
+            <option>珠海</option>
+        </select>
+
+        <br>
+        <br>
+        <input type="submit">
+        <input type="reset">
+        <input type="button">
+    </form>
+
+
+</body>
+</html>

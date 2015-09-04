@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>正则表达式</title>
+    <script type="text/javascript">
+       /*创建正则表达式对象的方式：
+       * 1. /正则表达式/
+       * 2. new RegExp('正则表达式')     这种方式需要转义符
+       * */
+
+       //使用
+        var re = /^\d{3}\-\d{3,8}$/;
+        if(re.test('010-12345')){
+            console.log("010-12345符合正则表达式:^\d{3}\-\d{3,8}$");
+        }
+
+        //提取子字符串
+        var re = /^(\d{3})\-(\d{3,8})$/;
+        var li = re.exec('010-12345');
+        console.log(li);
+
+
+        /*全局匹配: 对字符串，进行搜索匹配，每次exec()后返回目前匹配到的，并更新lastIndex属性，表示上次匹配到的最后的索引
+        当下次运行exec()上次匹配到的地方继续往下匹配*/
+        var s = 'JavaScript, VBScript, JScript and ECMAScript';
+        var re=/[a-zA-Z]+Script/g;
+
+        // 使用全局匹配:
+        re.exec(s);   // ['JavaScript']
+        re.lastIndex; // 10
+
+        re.exec(s);    // ['VBScript']
+        re.lastIndex; // 20
+
+        re.exec(s);    // ['JScript']
+        re.lastIndex; // 29
+
+        re.exec(s);    // ['ECMAScript']
+        re.lastIndex; // 44
+
+        re.exec(s);    // null，直到结束仍没有匹配到
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

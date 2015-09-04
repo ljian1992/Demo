@@ -1,0 +1,31 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>HTML框架练习</title>
+</head>
+<!--框架的作用:将浏览器划分成不同的步伐，每一个部分加载不同的页面
+    <frameset>: 它在HTML5中被<iframe>代替了，它不能和<body>一起使用，会有浏览器不支持<frameset>
+        cols:分割水平窗口，*号表示剩余部分，*,*分为2个，*,*,*分为3个
+        rows:分割上下窗口
+        frameborder:指定是否显示边框, 0不现实，1显示
+        border: 设置边框的大小，default 5px
+    <frame/>:必须放在<frameset>中，并且<frameset>定义多数个窗口，就要有多数个<frame/>
+        name:框架名称
+        src:网页存放的URL地址
+        noresize: 标识不能调整框架大小
+        scrollling：滚动条，auto，yes, no
+        frameborder:指定是否显示边框, 0不现实，1显示
+
+-->
+<frameset rows="15%,*,15%" frameborder="1", border="1px">
+    <frame name="top" src="frameset_top.html"/>
+    <frameset cols="30%, *">
+        <frame name="left" src="frameset_left.html"/>
+        <frame name="right" src="frameset_right.html"/>
+    </frameset>
+    <frame name="bottom" src="frameset_bottom.html"/>
+
+</frameset>
+
+
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>操作表单</title>
+</head>
+<body>
+    <form id="test-register" action="#" target="_blank">
+    <p id="test-error" style="color:red"></p>
+    <p>
+        用户名: <input type="text" id="username" name="username">
+    </p>
+    <p>
+        口令: <input type="password" id="password" name="password">
+    </p>
+    <p>
+        重复口令: <input type="password" id="password-2">
+    </p>
+    <p>
+        <button type="submit">提交</button> <button type="reset">重置</button>
+    </p>
+</form>
+    <script type="text/javascript">
+        'use strict';
+
+        /*要为表单添加onsubmit属性，用于监听*/
+        var form = document.getElementById('test-register');
+        form.addEventListener('submit', checkRegisterForm);
+
+
+        function checkRegisterForm(){
+            var username = document.getElementById('username');
+            var password = document.getElementById('password');
+            var password2 = document.getElementById('password-2');
+
+            //用户名必须是3-10位英文字母或数字；
+            var re_username = /^\w{3,10}$/;
+
+            //口令必须是6-20位；
+            var re_pws = /^.{6,20}]/;
+
+            if(!re_username.test(username.value)){
+                alert("用户名必须是3-10位英文字母或数字");
+                return false;
+            }
+
+            if(!re_pws.test(password.value) || !re_pws.test(password2.value)){
+                alert("口令必须是6-20位");
+                return false;
+            }
+
+            //判断密码是否相等
+            if(password.value !== password2.value){
+                alert("两次密码不相等");
+                return false;
+            }
+
+            return true;
+        }
+
+    </script>
+
+</body>
+</html>

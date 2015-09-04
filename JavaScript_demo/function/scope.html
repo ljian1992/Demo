@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>变量的作用域</title>
+
+    <script type="text/javascript">
+        'use strict';
+
+        /*JavaScript的作用域： 局部作用域，全局作用(仅有一个)，在ES6中多个了块作用域
+        * 变量搜索路径：块作用域-->局部作用域-->全局作用域
+        * */
+
+        /*函数嵌套，内部函数可以访问，外部函数定义的变量，但外部函数不能访问内部函数定义的变量,
+        同名，则从内到外搜索，搜到到全局变量作用域骄傲是没有则*/
+        function func_out(){
+            var x = 1;
+            function func_in(){
+                var y = x;
+                console.log("y = %d", y);
+            }
+            func_in();
+//            y = y + 1;
+        }
+
+        func_out();
+
+        /*变量提升: Javascript引擎，会先扫描整个函数体语句，然后再把所有的变量声明提升到函数的顶部
+        * 因此函数变量的声明，因全部都在函数开始的时候，声明
+        * */
+        function func(){
+            var x = 'Hello  ' + y;
+            console.log(x);
+
+            var y = 'world!';
+            console.log(x);
+        }
+        func();
+
+
+        /*全局作用域：
+            全局作用域的变量都被绑定到了window这个属性上。
+            全局作用域只有一个, 这容易造成命名冲突，解决办法就是， 把自己的比哪里函数都绑定到全局变量中*/
+        window.func();
+
+        var LjianValue = {};
+
+        //绑定全局变量
+        LjianValue.filename = 'scope';
+
+        //绑定函数
+        LjianValue.func = function(){ return null;};
+
+
+        /*局部作用域：
+        *   for循环不具备作用域更改的能力, 在ES6中引入新的关键字let, 声明一个块级作用域，可以通过let，把变量的作用域限制在for循环中
+        *   */
+        function func(number){
+            if(typeof number !== 'number'){
+                throw '不是数字'
+            }
+
+            var sum = 0
+            for (let i=0; i<number; ++i){
+                sum += i;
+            }
+
+            i += i;
+        }
+
+        func(100);
+        func();
+
+        /*常量：在ES6中引入新的关键字const来定义常量，和let一样具有快记作用域*/
+        const PI = 3.14;
+        console.log(PI)
+
+
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>
