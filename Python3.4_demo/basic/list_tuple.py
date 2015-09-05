@@ -5,14 +5,14 @@ import os
 numbers = list(range(10))
 
 
-#切片
+#切片, 切片失败返回[], 而不是报错
 print(numbers[::3])
 print(numbers[1])
 print(numbers[-1])
 
 print(numbers[1:8])
 print(numbers[-3:-1])
-#print(nubmers[-4:-1]), 不支持倒序切片
+print(numbers[-1:-4])  #, 不支持倒序切片
 
 
 t = (1,)

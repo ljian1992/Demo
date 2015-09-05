@@ -58,3 +58,7 @@ print(f6())
 
 
 print((lambda x: x*x)(8))
+
+
+
+
