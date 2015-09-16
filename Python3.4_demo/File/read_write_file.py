@@ -16,3 +16,9 @@ with open('tifa.jpg', 'rb') as f:
 with open('The_Zen_of_Python', 'r', encoding='utf-8', errors='ignore') as f:
     pass
 
+with open('The_Zen_of_Python', 'r', encoding='utf-8', errors='ignore') as f:
+    pass
+
+
+
+

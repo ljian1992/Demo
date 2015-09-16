@@ -19,6 +19,7 @@ obj = [{'key1': False, 'key2': True}, [1, 1, 2], (1, 1, 2), 'Ljian', 112, 112.11
 encodejson = json.dumps(obj)
 print(obj)
 print(encodejson)
+print(type(encodejson))
 
 # JSON--->Python基本数据类型
 # JSON	 --->   Python
